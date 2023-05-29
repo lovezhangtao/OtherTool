@@ -5,11 +5,8 @@
 int main(int argc, char* argv[]) 
 {
     CommandParser cmdParser;
-    cmdParser.registerOption("-v", "Verbose mode");
-    cmdParser.registerOption("-d", "Debug mode");
-    cmdParser.registerCommand("start", "Start the program");
-    cmdParser.registerCommand("stop", "Stop the program");
-    cmdParser.registerCommand("restart", "Restart the program");
+    cmdParser.registerCommand("-e", "Encrypt File");
+    cmdParser.registerCommand("-d", "Decrypt File");
 
     if (argc < 2) {
         cmdParser.showUsage();
@@ -18,25 +15,21 @@ int main(int argc, char* argv[])
 
     cmdParser.parse(argc, argv);
 
-    if (cmdParser.hasOption("-v")) {
-        std::cout << "Verbose mode on" << std::endl;
+    if (cmdParser.showHelp()) {
+        cmdParser.showUsage();
+        return 0;
     }
-    if (cmdParser.hasOption("-d")) {
-        std::cout << "Debug mode on" << std::endl;
+
+    if (cmdParser.hasCmd("-e")) {
+        std::cout << "Cmd: Encrypt" << std::endl;
+    }
+    if (cmdParser.hasCmd("-d")) {
+        std::cout << "Cmd: Decrypt" << std::endl;
     }
 
     std::vector<std::string> args = cmdParser.getArguments();
     for (const auto& arg : args) {
         std::cout << "Argument: " << arg << std::endl;
-    }
-
-    // Handle commands
-    if (cmdParser.getArguments().empty()) {
-        std::cout << "No command specified" << std::endl;
-    }
-    else {
-        std::string cmd = cmdParser.getArguments()[0];
-        std::cout << "Command: " << cmd << std::endl;
     }
 
     return 0;

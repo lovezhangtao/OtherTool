@@ -13,26 +13,24 @@ public:
         m_cmdDescriptions[cmd] = desc;
     }
 
-    void registerOption(const std::string& opt, const std::string& desc) {
-        m_optDescriptions[opt] = desc;
-    }
-
     void parse(int argc, char* argv[]) {
-        m_command = argv[1];
+        std::string cmd = argv[1];
+        if (cmd == "-h" || cmd == "--help") { // help option
+            m_showHelp = true;
+            return;
+        }
+        m_command = cmd;
+        m_cmds.push_back(m_command);
         for (int i = 2; i < argc; i++) {
             std::string arg = argv[i];
-            if (arg[0] == '-') { // option
-                m_options.push_back(arg);
-            }
-            else { // argument
-                m_arguments.push_back(arg);
-            }
+             // argument
+             m_arguments.push_back(arg);
         }
     }
 
-    bool hasOption(const std::string& opt) const {
-        for (const auto& o : m_options) {
-            if (o == opt) {
+    bool hasCmd(const std::string& cmd) const {
+        for (const auto& c : m_cmds) {
+            if (c == cmd) {
                 return true;
             }
         }
@@ -43,30 +41,28 @@ public:
         return m_arguments;
     }
 
-    void showUsage() const {
-        std::cout << "Usage: " << m_command << " ";
-        for (const auto& optDesc : m_optDescriptions) {
-            std::cout << "[" << optDesc.first << "] ";
+    bool showHelp() const {
+        return m_showHelp;
+    }
+
+    void showUsage(const std::string& error = "") const {
+        if (!error.empty()) {
+            std::cout << error << std::endl << std::endl;
         }
+        std::cout << "Usage: " << m_command << " ";
         std::cout << "[arguments]" << std::endl;
         std::cout << std::endl;
 
-        std::cout << "Arguments:" << std::endl;
+        std::cout << "Cmds:" << std::endl;
         for (const auto& cmdDesc : m_cmdDescriptions) {
             std::cout << "  " << cmdDesc.first << "\t" << cmdDesc.second << std::endl;
-        }
-        std::cout << std::endl;
-
-        std::cout << "Options:" << std::endl;
-        for (const auto& optDesc : m_optDescriptions) {
-            std::cout << "  " << optDesc.first << "\t" << optDesc.second << std::endl;
         }
     }
 
 private:
-    std::string m_command;
+    std::string m_command = "[cmd]";
     std::map<std::string, std::string> m_cmdDescriptions;
-    std::vector<std::string> m_options;
-    std::map<std::string, std::string> m_optDescriptions;
+    std::vector<std::string> m_cmds;
     std::vector<std::string> m_arguments;
+    bool m_showHelp = false;
 };
