@@ -149,6 +149,10 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CommandParser.h" />
+    <ClInclude Include="GeneralRegister.h" />
+    <ClInclude Include="MemRegister.h" />
+    <ClInclude Include="pch.h" />
+    <ClInclude Include="PhyRegister.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

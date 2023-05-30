@@ -1,5 +1,10 @@
-#include <iostream>
+#include "pch.h"
 #include "CommandParser.h"
+#include "MemRegister.h"
+#include "PhyRegister.h"
+
+const std::string key = "Hello, world!";
+
 
 //https://en.wikipedia.org/wiki/XOR_cipher
 //https://cplusplus.com/forum/windows/128374/
@@ -15,6 +20,7 @@ std::string encrypt(std::string msg, std::string key)
         msg[i] ^= key[i];
     return msg;
 }
+
 std::string decrypt(std::string msg, std::string key)
 {
     return encrypt(msg, key); // lol
@@ -22,9 +28,20 @@ std::string decrypt(std::string msg, std::string key)
 
 int main()
 {
-    std::string message = encrypt("Hello world!", "monkey");
+    WORD num_value = 0xDFD2;
+    auto reg_addr = std::make_unique<MemRegister>(num_value);
+    WORD value = reg_addr->getAddr();
+
+    std::stringstream ss;
+    ss << "0x" << std::hex << value; // 在16进制整数前加上"0x"前缀，得到带0x的16进制字符串
+    std::string str = ss.str(); // 获取字符串形式的带0x的16进制数
+    std::cout << "Get Addr str: " << str << std::endl;
+
+    std::string message = encrypt(str, key);
     std::cout << "Encrypted: " << message;
-    std::cout << "\nDecrypted: " << decrypt(message, "monkey");
+    std::cout << "\nDecrypted: " << decrypt(message, key);
+
+    return 0;
 }
 
 int main2(int argc, char* argv[]) 

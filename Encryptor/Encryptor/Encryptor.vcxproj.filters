@@ -23,5 +23,17 @@
     <ClInclude Include="CommandParser.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="GeneralRegister.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MemRegister.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="PhyRegister.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="pch.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
