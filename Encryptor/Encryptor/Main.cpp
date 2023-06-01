@@ -4,6 +4,7 @@
 #include "PhyRegister.h"
 #include "LoadDll.h"
 #include "Encryptor.h"
+#include "SpdLog.h"
 
 
 int main()
@@ -23,7 +24,8 @@ int main()
 
     //std::cout << decrypt(strAddr, key) << std::endl;
 
-    load_dll();
+    //load_dll();
+    basic_logfile_example();
     return 0;
 };
 

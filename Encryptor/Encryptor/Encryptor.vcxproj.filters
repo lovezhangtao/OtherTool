@@ -24,6 +24,9 @@
     <ClCompile Include="LoadDll.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="SpdLog.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CommandParser.h">
@@ -48,6 +51,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="LoadDll.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SpdLog.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
